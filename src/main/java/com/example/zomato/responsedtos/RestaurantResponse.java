@@ -4,6 +4,8 @@ import com.example.zomato.enums.DietType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class RestaurantResponse {
@@ -11,5 +13,5 @@ public class RestaurantResponse {
     private String restaurantId;
     private String name;
     private String description;
-    private DietType dietType;
+    private List<DietType> dietTypes;
 }
