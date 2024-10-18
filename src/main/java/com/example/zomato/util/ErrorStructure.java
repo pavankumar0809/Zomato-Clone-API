@@ -11,7 +11,7 @@ public class ErrorStructure {
     private String message;
     private  String rootCause;
 
-    public ErrorStructure create(HttpStatus status, String message, String rootCause){
+    public static ErrorStructure create(HttpStatus status, String message, String rootCause){
         ErrorStructure errorStructure =new ErrorStructure();
         errorStructure.setStatus(status.value());
         errorStructure.setMessage(message);
