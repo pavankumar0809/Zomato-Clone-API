@@ -19,19 +19,26 @@ public class RestaurantService {
     private final RestaurantMapper restaurantMapper;
 
 
-
     public RestaurantResponse addRestaurant(RestaurantRequest restaurantRequest) {
-    Restaurant restaurant=restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant()));
-    return restaurantMapper.mapToRestaurantResponse(restaurant);
+        Restaurant restaurant = restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant()));
+        return restaurantMapper.mapToRestaurantResponse(restaurant);
     }
 
     public RestaurantResponse findRestaurant(String restaurantId) {
-        Optional<Restaurant> optional= restaurantRepository.findById(restaurantId);
+        Optional<Restaurant> optional = restaurantRepository.findById(restaurantId);
         if (optional.isPresent()) {
-            Restaurant restaurant=optional.get();
+            Restaurant restaurant = optional.get();
             return restaurantMapper.mapToRestaurantResponse(restaurant);
-        }
-        else
+        } else
             throw new RestaurantNotFoundByIdException("failed to find restaurant");
+    }
+
+    public RestaurantResponse updateRestaurant(RestaurantRequest restaurantRequest, String restaurantid) {
+        Optional<Restaurant> optional = restaurantRepository.findById(restaurantid);
+        if (optional.isPresent()) {
+            return restaurantMapper.
+                    mapToRestaurantResponse(restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, optional.get())));
+        } else
+            throw new RestaurantNotFoundByIdException("failed to update restaurant");
     }
 }

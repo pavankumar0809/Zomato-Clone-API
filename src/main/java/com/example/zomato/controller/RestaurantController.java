@@ -1,5 +1,6 @@
 package com.example.zomato.controller;
 
+import com.example.zomato.entity.Restaurant;
 import com.example.zomato.requestdtos.RestaurantRequest;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.service.RestaurantService;
@@ -18,14 +19,20 @@ public class RestaurantController {
     private final AppResponseBuilder responseBuilder;
 
     @PostMapping("/restaurants/add")
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> addRestaurant(@RequestBody RestaurantRequest restaurantRequest){
-            RestaurantResponse response= restaurantservice.addRestaurant(restaurantRequest);
-            return responseBuilder.success(HttpStatus.CREATED,"restaurant inserted", response);
-    }
-    @GetMapping("/restaurants/find")
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> findRestaurant(@RequestParam String restaurantId){
-            RestaurantResponse response= restaurantservice.findRestaurant(restaurantId);
-            return responseBuilder.success(HttpStatus.FOUND,"restaurant found",response);
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> addRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
+        RestaurantResponse response = restaurantservice.addRestaurant(restaurantRequest);
+        return responseBuilder.success(HttpStatus.CREATED, "restaurant inserted", response);
     }
 
+    @GetMapping("/restaurants/find")
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> findRestaurant(@RequestParam String restaurantId) {
+        RestaurantResponse response = restaurantservice.findRestaurant(restaurantId);
+        return responseBuilder.success(HttpStatus.FOUND, "restaurant found", response);
+    }
+
+    @PutMapping("/restaurants/update")
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> updateRestaurant(@RequestBody RestaurantRequest restaurantRequest, @RequestParam("restaurant_id") String restaurantId) {
+        RestaurantResponse response = restaurantservice.updateRestaurant(restaurantRequest, restaurantId);
+        return responseBuilder.success(HttpStatus.OK, "restaurant updated", response);
+    }
 }
