@@ -29,5 +29,8 @@ public class Restaurant {
     @Column(name = "diet_types")
     @ElementCollection
     private List<DietType> dietTypes;
+    @Column(name = "address")
+    @OneToOne
+    private Address address;
 }
 
