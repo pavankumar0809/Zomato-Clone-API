@@ -35,4 +35,5 @@ public class RestaurantController {
         RestaurantResponse response = restaurantservice.updateRestaurant(restaurantRequest, restaurantId);
         return responseBuilder.success(HttpStatus.OK, "restaurant updated", response);
     }
+
 }
