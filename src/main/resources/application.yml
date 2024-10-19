@@ -1,6 +1,7 @@
 spring:
   application:
     name: Zomato-Clone-API
+
   #
   datasource:
     url: ${MYSQL_URL}
@@ -13,6 +14,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
 #APPLICATION CONFIGURATION
 zomato:
   base_url: /api/v1
+
+# CLOUDINARY CONFIGURATION
+cloudinary:
+  cloud_name: ${CLOUDINARY_CLOUD_NAME}
+  cloud_apikey: ${CLOUDINARY_API_KEY}
+  cloud_api_secret: ${CLOUDINARY_API_SECRET}
