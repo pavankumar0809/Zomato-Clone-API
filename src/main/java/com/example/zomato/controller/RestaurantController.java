@@ -36,4 +36,5 @@ public class RestaurantController {
         return responseBuilder.success(HttpStatus.OK, "restaurant updated", response);
     }
 
+
 }

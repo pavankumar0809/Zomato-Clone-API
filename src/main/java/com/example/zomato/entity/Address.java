@@ -21,7 +21,7 @@ public class Address {
     @Column(name = "addressLine1")
     private String addressLine1;
 
-    @Column(name = "addressLin22")
+    @Column(name = "addressLine2")
     private String addressLine2;
 
     @Column(name = "landmark")
