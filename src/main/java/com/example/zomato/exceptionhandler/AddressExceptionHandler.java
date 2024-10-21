@@ -1,6 +1,7 @@
 package com.example.zomato.exceptionhandler;
 
 import com.example.zomato.exception.AddressCannotAddedException;
+import com.example.zomato.exception.AddressNotFoundException;
 import com.example.zomato.util.AppResponseBuilder;
 import com.example.zomato.util.ErrorStructure;
 import lombok.AllArgsConstructor;
@@ -17,5 +18,10 @@ public class AddressExceptionHandler {
     @ExceptionHandler(AddressCannotAddedException.class)
     public ResponseEntity<ErrorStructure> handleAddressNotAdded(AddressCannotAddedException ex){
             return appResponseBuilder.error(HttpStatus.NOT_ACCEPTABLE, ex.getMessage(), "Address already present");
+    }
+
+    @ExceptionHandler(AddressNotFoundException.class)
+    public  ResponseEntity<ErrorStructure> handleAddressNotFound(AddressNotFoundException ex){
+        return appResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), "Address not present in database");
     }
 }

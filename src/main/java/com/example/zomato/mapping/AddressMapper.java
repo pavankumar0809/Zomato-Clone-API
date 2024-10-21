@@ -2,7 +2,7 @@ package com.example.zomato.mapping;
 
 import com.example.zomato.entity.Address;
 import com.example.zomato.requestdtos.AddressRequest;
-import com.example.zomato.responsedtos.AddressRespone;
+import com.example.zomato.responsedtos.AddressResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,8 +21,8 @@ public class AddressMapper {
         return address;
     }
 
-    public AddressRespone mapToAddressResponse(Address address) {
-        AddressRespone addressRespone = new AddressRespone();
+    public AddressResponse mapToAddressResponse(Address address) {
+        AddressResponse addressRespone = new AddressResponse();
         addressRespone.setAddress_id(address.getAddress_id());
         addressRespone.setAddressLine1(address.getAddressLine1());
         addressRespone.setAddressLine2(address.getAddressLine2());

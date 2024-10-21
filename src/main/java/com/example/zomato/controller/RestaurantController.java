@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("${zomato.base_url}")
@@ -36,5 +37,8 @@ public class RestaurantController {
         return responseBuilder.success(HttpStatus.OK, "restaurant updated", response);
     }
 
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> uploadImage(@PathVariable String restaurantId, @RequestParam MultipartFile file){
+        return  null;
+    }
 
 }

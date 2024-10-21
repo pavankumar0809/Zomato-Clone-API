@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddressRespone {
+public class AddressResponse {
 
     private String address_id;
     private String addressLine1;
