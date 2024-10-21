@@ -40,9 +40,9 @@ public class RestaurantController {
     }
 
     @PutMapping("restaurants/{restaurantId}/images")
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> addImage(@PathVariable String restaurantId, @RequestParam MultipartFile file) throws IOException {
-        RestaurantResponse response = restaurantservice.addImage(restaurantId, file);
-        return responseBuilder.success(HttpStatus.OK, "restaurant updated", response);
+    public ResponseEntity<ResponseStructure<String>> addImage(@PathVariable String restaurantId, @RequestParam MultipartFile file) throws IOException {
+        String url = restaurantservice.addImage(restaurantId, file);
+        return responseBuilder.success(HttpStatus.OK, "restaurant updated", url);
     }
 
 }

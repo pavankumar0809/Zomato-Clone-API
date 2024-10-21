@@ -42,16 +42,19 @@ public class RestaurantService {
             return restaurantMapper.
                     mapToRestaurantResponse(restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, optional.get())));
         }
-            throw new RestaurantNotFoundByIdException("failed to update restaurant");
+        throw new RestaurantNotFoundByIdException("failed to update restaurant");
     }
 
-    public RestaurantResponse addImage(String restaurantId, MultipartFile file) throws IOException {
+    public String addImage(String restaurantId, MultipartFile file) throws IOException {
         Optional<Restaurant> optional = restaurantRepository.findById(restaurantId);
-        if (optional.isPresent()){
-            Restaurant restaurant= optional.get();
-            restaurant.setImageUrl(imageService.uploadImage(file));
-            return restaurantMapper.mapToRestaurantResponse(restaurant);
-        }throw new RestaurantNotFoundByIdException("failed to add Image to restaurant");
+        if (optional.isPresent()) {
+            Restaurant restaurant = optional.get();
+            String url = imageService.uploadImage(file);
+            restaurant.setImageUrl(url);
+            restaurantRepository.save(restaurant);
+            return url;
+        }
+        throw new RestaurantNotFoundByIdException("failed to add Image to restaurant");
     }
 
 }
