@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("${zomato.base_url}")
 @AllArgsConstructor
@@ -19,26 +21,28 @@ public class RestaurantController {
     private final RestaurantService restaurantservice;
     private final AppResponseBuilder responseBuilder;
 
-    @PostMapping("/restaurants/add")
+    @PostMapping("/restaurants")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> addRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
         RestaurantResponse response = restaurantservice.addRestaurant(restaurantRequest);
         return responseBuilder.success(HttpStatus.CREATED, "restaurant inserted", response);
     }
 
-    @GetMapping("/restaurants/find")
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> findRestaurant(@RequestParam String restaurantId) {
+    @GetMapping("/restaurants/{restaurantId}")
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> findRestaurant(@PathVariable String restaurantId) {
         RestaurantResponse response = restaurantservice.findRestaurant(restaurantId);
         return responseBuilder.success(HttpStatus.FOUND, "restaurant found", response);
     }
 
-    @PutMapping("/restaurants/update")
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> updateRestaurant(@RequestBody RestaurantRequest restaurantRequest, @RequestParam("restaurant_id") String restaurantId) {
+    @PutMapping("/restaurants/{restaurantId}")
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> updateRestaurant(@RequestBody RestaurantRequest restaurantRequest, @PathVariable String restaurantId) {
         RestaurantResponse response = restaurantservice.updateRestaurant(restaurantRequest, restaurantId);
         return responseBuilder.success(HttpStatus.OK, "restaurant updated", response);
     }
 
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> uploadImage(@PathVariable String restaurantId, @RequestParam MultipartFile file){
-        return  null;
+    @PutMapping("restaurants/{restaurantId}/images")
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> addImage(@PathVariable String restaurantId, @RequestParam MultipartFile file) throws IOException {
+        RestaurantResponse response = restaurantservice.addImage(restaurantId, file);
+        return responseBuilder.success(HttpStatus.OK, "restaurant updated", response);
     }
 
 }

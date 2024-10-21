@@ -3,6 +3,7 @@ package com.example.zomato.service;
 import com.cloudinary.Cloudinary;
 import lombok.AllArgsConstructor;
 import org.apache.hc.client5.http.entity.mime.MultipartPart;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 @AllArgsConstructor
+@Component
 public class ImageService {
     private final Cloudinary cloudinary;
 

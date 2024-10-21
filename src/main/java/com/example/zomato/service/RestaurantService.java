@@ -8,7 +8,9 @@ import com.example.zomato.requestdtos.RestaurantRequest;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -17,6 +19,7 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMapper restaurantMapper;
+    private final ImageService imageService;
 
 
     public RestaurantResponse addRestaurant(RestaurantRequest restaurantRequest) {
@@ -33,12 +36,22 @@ public class RestaurantService {
             throw new RestaurantNotFoundByIdException("failed to find restaurant");
     }
 
-    public RestaurantResponse updateRestaurant(RestaurantRequest restaurantRequest, String restaurantid) {
-        Optional<Restaurant> optional = restaurantRepository.findById(restaurantid);
+    public RestaurantResponse updateRestaurant(RestaurantRequest restaurantRequest, String restaurantId) {
+        Optional<Restaurant> optional = restaurantRepository.findById(restaurantId);
         if (optional.isPresent()) {
             return restaurantMapper.
                     mapToRestaurantResponse(restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, optional.get())));
-        } else
+        }
             throw new RestaurantNotFoundByIdException("failed to update restaurant");
     }
+
+    public RestaurantResponse addImage(String restaurantId, MultipartFile file) throws IOException {
+        Optional<Restaurant> optional = restaurantRepository.findById(restaurantId);
+        if (optional.isPresent()){
+            Restaurant restaurant= optional.get();
+            restaurant.setImageUrl(imageService.uploadImage(file));
+            return restaurantMapper.mapToRestaurantResponse(restaurant);
+        }throw new RestaurantNotFoundByIdException("failed to add Image to restaurant");
+    }
+
 }

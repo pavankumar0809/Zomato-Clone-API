@@ -14,4 +14,5 @@ public class RestaurantResponse {
     private String name;
     private String description;
     private List<DietType> dietTypes;
+    private String imageUrl;
 }

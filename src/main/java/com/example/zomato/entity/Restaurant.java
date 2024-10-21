@@ -31,5 +31,7 @@ public class Restaurant {
     private List<DietType> dietTypes;
     @OneToOne
     private Address address;
+    @Column(name = "image_url")
+    private String imageUrl;
 }
 
