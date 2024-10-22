@@ -28,33 +28,33 @@ public class RestaurantService {
     }
 
     public RestaurantResponse findRestaurant(String restaurantId) {
-        Optional<Restaurant> optional = restaurantRepository.findById(restaurantId);
-        if (optional.isPresent()) {
-            Restaurant restaurant = optional.get();
-            return restaurantMapper.mapToRestaurantResponse(restaurant);
-        } else
-            throw new RestaurantNotFoundByIdException("failed to find restaurant");
+        return restaurantRepository.findById(restaurantId)
+                .map(restaurantMapper::mapToRestaurantResponse)
+                .orElseThrow(() -> new RestaurantNotFoundByIdException("Failed to find Restaurant."));
+
     }
 
     public RestaurantResponse updateRestaurant(RestaurantRequest restaurantRequest, String restaurantId) {
-        Optional<Restaurant> optional = restaurantRepository.findById(restaurantId);
-        if (optional.isPresent()) {
-            return restaurantMapper.
-                    mapToRestaurantResponse(restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, optional.get())));
-        }
-        throw new RestaurantNotFoundByIdException("failed to update restaurant");
+        return restaurantRepository.findById(restaurantId)
+                .map(restaurant -> {
+                    restaurantMapper.mapToRestaurant(restaurantRequest, restaurant);
+                    restaurant = restaurantRepository.save(restaurant);
+                    return restaurantMapper.mapToRestaurantResponse(restaurant);
+                }).orElseThrow(() -> new RestaurantNotFoundByIdException("Failed to update the restaurant"));
     }
 
-    public String addImage(String restaurantId, MultipartFile file) throws IOException {
-        Optional<Restaurant> optional = restaurantRepository.findById(restaurantId);
-        if (optional.isPresent()) {
-            Restaurant restaurant = optional.get();
-            String url = imageService.uploadImage(file);
-            restaurant.setImageUrl(url);
-            restaurantRepository.save(restaurant);
-            return url;
-        }
-        throw new RestaurantNotFoundByIdException("failed to add Image to restaurant");
-    }
+    public String addImage(String restaurantId, MultipartFile file) {
 
+        return restaurantRepository.findById(restaurantId)
+                .map(restaurant -> {
+                    try {
+                        String url = imageService.uploadImage(file);
+                        restaurant.setImageUrl(url);
+                        restaurantRepository.save(restaurant);
+                        return url;
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).orElseThrow(() -> new RestaurantNotFoundByIdException("Failed to add Image to restaurant"));
+    }
 }

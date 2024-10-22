@@ -6,13 +6,13 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
-public class ErrorStructure {
+public class ErrorStructure<T> {
     private int status;
     private String message;
-    private String rootCause;
+    private T rootCause;
 
-    public static ErrorStructure create(HttpStatus status, String message, String rootCause) {
-        ErrorStructure errorStructure = new ErrorStructure();
+    public static <T>ErrorStructure<T> create(HttpStatus status, String message, T rootCause) {
+        ErrorStructure<T> errorStructure = new ErrorStructure<T>();
         errorStructure.setStatus(status.value());
         errorStructure.setMessage(message);
         errorStructure.setRootCause(rootCause);

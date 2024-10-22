@@ -6,6 +6,7 @@ import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.service.RestaurantService;
 import com.example.zomato.util.AppResponseBuilder;
 import com.example.zomato.util.ResponseStructure;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class RestaurantController {
     private final AppResponseBuilder responseBuilder;
 
     @PostMapping("/restaurants")
-    public ResponseEntity<ResponseStructure<RestaurantResponse>> addRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> addRestaurant(@Valid @RequestBody RestaurantRequest restaurantRequest) {
         RestaurantResponse response = restaurantservice.addRestaurant(restaurantRequest);
         return responseBuilder.success(HttpStatus.CREATED, "restaurant inserted", response);
     }
