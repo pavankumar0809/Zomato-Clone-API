@@ -25,6 +25,7 @@ public class CuisineService {
         return restaurantRepository.findById(restaurantId)
                 .map(restaurant -> {
                     Cuisine cuisine = cuisineMapper.mapToCuisine(cuisineRequest, new Cuisine());
+                    cuisineRepository.save(cuisine);
                     restaurant.getCuisines().add(cuisine);
                     restaurantRepository.save(restaurant);
                     return cuisineMapper.mapToCuisineResponse(cuisine);
