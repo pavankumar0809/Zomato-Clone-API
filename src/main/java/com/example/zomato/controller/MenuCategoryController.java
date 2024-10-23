@@ -2,6 +2,7 @@ package com.example.zomato.controller;
 
 import com.example.zomato.requestdtos.MenuCategoryRequest;
 import com.example.zomato.responsedtos.MenuCategoryResponse;
+import com.example.zomato.service.MenuCategoryService;
 import com.example.zomato.util.AppResponseBuilder;
 import com.example.zomato.util.ResponseStructure;
 import lombok.AllArgsConstructor;
@@ -16,9 +17,15 @@ public class MenuCategoryController {
     private final MenuCategoryService menuCategoryService;
     private final AppResponseBuilder appResponseBuilder;
 
-        @PostMapping("/restaurants/{restaurantId}/menu_categories")
-        public ResponseEntity<ResponseStructure<MenuCategoryResponse>> addMenuCategory(@PathVariable String restaurantId, @RequestBody MenuCategoryRequest menuCategoryRequest){
-            MenuCategoryResponse menuCategoryResponse=menuCategoryService.addMenuCategory(restaurantId, menuCategoryRequest);
-            return appResponseBuilder.success(HttpStatus.CREATED,"Menu Added", menuCategoryResponse);
-        }
+    @PostMapping("/restaurants/{restaurantId}/menu_categories")
+    public ResponseEntity<ResponseStructure<MenuCategoryResponse>> addMenuCategory(@PathVariable String restaurantId, @RequestBody MenuCategoryRequest menuCategoryRequest) {
+        MenuCategoryResponse menuCategoryResponse = menuCategoryService.addMenuCategory(restaurantId, menuCategoryRequest);
+        return appResponseBuilder.success(HttpStatus.CREATED, "Menu Added", menuCategoryResponse);
+    }
+
+    @PutMapping("menu_categories/{menuCategoryId}")
+    public ResponseEntity<ResponseStructure<MenuCategoryResponse>> updateMenuCategory(@PathVariable String menuCategoryId, @RequestBody MenuCategoryRequest menuCategoryRequest) {
+        MenuCategoryResponse menuCategoryResponse = menuCategoryService.updateMenuCategory(menuCategoryId, menuCategoryRequest);
+        return appResponseBuilder.success(HttpStatus.OK, "Menu updated", menuCategoryResponse);
+    }
 }

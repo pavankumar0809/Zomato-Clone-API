@@ -1,4 +1,4 @@
-package com.example.zomato.controller;
+package com.example.zomato.service;
 
 import com.example.zomato.entity.MenuCategory;
 import com.example.zomato.exception.MenuNotFoundByIdException;
@@ -32,10 +32,10 @@ public class MenuCategoryService {
 
     public MenuCategoryResponse updateMenuCategory(String menuCategoryId, MenuCategoryRequest menuCategoryRequest) {
         return menuCategoryRepository.findById(menuCategoryId)
-                .map(menuCategory -> {
-                    menuCategoryMapper.mapToMenuCategory(menuCategoryRequest, menuCategory);
-                    menuCategoryRepository.save(menuCategory);
-                    return menuCategoryMapper.mapToMenuCategoryResponse(menuCategory);
+                .map(exMenuCategory -> {
+                    menuCategoryMapper.mapToMenuCategory(menuCategoryRequest, exMenuCategory);
+                    menuCategoryRepository.save(exMenuCategory);
+                    return menuCategoryMapper.mapToMenuCategoryResponse(exMenuCategory);
                 })
                 .orElseThrow(() -> new MenuNotFoundByIdException("Cannot update menu category"));
     }
