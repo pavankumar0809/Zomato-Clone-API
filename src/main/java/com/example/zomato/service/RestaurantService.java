@@ -4,7 +4,9 @@ import com.example.zomato.entity.Restaurant;
 import com.example.zomato.exception.RestaurantNotFoundByIdException;
 import com.example.zomato.mapping.RestaurantMapper;
 import com.example.zomato.repository.RestaurantRepository;
+import com.example.zomato.requestdtos.CuisineRequest;
 import com.example.zomato.requestdtos.RestaurantRequest;
+import com.example.zomato.responsedtos.CuisineResponse;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMapper restaurantMapper;
     private final ImageService imageService;
+
 
 
     public RestaurantResponse addRestaurant(RestaurantRequest restaurantRequest) {

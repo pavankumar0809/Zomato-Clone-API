@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppDoc {
 
-    Info info(){
+    Info info() {
         return new Info()
                 .title("Zomato-Clone-Application")
                 .description("Zomato clone application is a RESTful webServices which we are cloning the Zomato APP")
@@ -16,7 +16,7 @@ public class AppDoc {
     }
 
     @Bean
-    OpenAPI openAPI(){
+    OpenAPI openAPI() {
         return new OpenAPI().info(info());
     }
 }

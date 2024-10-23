@@ -1,7 +1,9 @@
 package com.example.zomato.controller;
 
 import com.example.zomato.entity.Restaurant;
+import com.example.zomato.requestdtos.CuisineRequest;
 import com.example.zomato.requestdtos.RestaurantRequest;
+import com.example.zomato.responsedtos.CuisineResponse;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.service.RestaurantService;
 import com.example.zomato.util.AppResponseBuilder;
