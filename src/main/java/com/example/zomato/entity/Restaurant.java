@@ -44,5 +44,9 @@ public class Restaurant {
     @Column(name = "cuisines")
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Cuisine> cuisines;
+
+    @Column(name = "menu_categories")
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<MenuCategory> menuCategories;
 }
 
