@@ -20,14 +20,14 @@ public class FoodTypeController {
     private final AppResponseBuilder appResponseBuilder;
 
     @PostMapping("/foodtypes")
-    public ResponseEntity<ResponseStructure<FoodTypeResponse>> addFoodtype(@RequestBody FoodTypeRequest foodTypeRequest) {
-        FoodTypeResponse foodTypeResponse = foodTypeService.addFoodType(foodTypeRequest);
-        return appResponseBuilder.success(HttpStatus.CREATED, "Food Type added", foodTypeResponse);
+    public ResponseEntity<ResponseStructure<String>> addFoodtype(@RequestBody FoodTypeRequest foodTypeRequest) {
+        String foodTitle = foodTypeService.addFoodType(foodTypeRequest);
+        return appResponseBuilder.success(HttpStatus.CREATED, "Food Type added", foodTitle);
     }
 
     @GetMapping("/foodtypes")
-    public ResponseEntity<ResponseStructure<List<FoodTypeResponse>>> findAllFoodType(){
-        List<FoodTypeResponse> foodTypeResponses = foodTypeService.finadAllFoodType();
-        return appResponseBuilder.success(HttpStatus.FOUND, "Food Types Found", foodTypeResponses);
+    public ResponseEntity<ResponseStructure<List<String>>> findAllFoodType() {
+        List<String> foodTitles = foodTypeService.finadAllFoodType();
+        return appResponseBuilder.success(HttpStatus.FOUND, "Food Types Found", foodTitles);
     }
 }

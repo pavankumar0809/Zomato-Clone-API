@@ -18,18 +18,19 @@ public class FoodTypeService {
     private final FoodTypeRepository foodTypeRepository;
     private final FoodTypeMapper foodTypeMapper;
 
-    public FoodTypeResponse addFoodType(FoodTypeRequest foodTypeRequest) {
-        if (foodTypeRepository.existsByTitleIgnoreCase(foodTypeRequest.getTitle())){
+    public String addFoodType(FoodTypeRequest foodTypeRequest) {
+        if (foodTypeRepository.existsByTitleIgnoreCase(foodTypeRequest.getTitle())) {
             throw new FoodTypeTitleAlreadyExists("Food type with the same title already exists.");
         }
-        return foodTypeMapper.mapToFoodTypeResponse(foodTypeRepository.save(foodTypeMapper.mapToFoodType(foodTypeRequest, new FoodType())));
+        FoodTypeResponse foodTypeResponse = foodTypeMapper.mapToFoodTypeResponse(foodTypeRepository.save(foodTypeMapper.mapToFoodType(foodTypeRequest, new FoodType())));
+        return foodTypeResponse.getTitle();
     }
 
-    public List<FoodTypeResponse> finadAllFoodType() {
-        List<FoodTypeResponse> foodTypeResponses= new ArrayList<>();
+    public List<String> finadAllFoodType() {
+        List<String> foodTypeResponses = new ArrayList<>();
         foodTypeRepository.findAll()
                 .forEach(foodType -> {
-                    foodTypeResponses.add(foodTypeMapper.mapToFoodTypeResponse(foodType));
+                    foodTypeResponses.add(foodType.getTitle());
                 });
         return foodTypeResponses;
     }
