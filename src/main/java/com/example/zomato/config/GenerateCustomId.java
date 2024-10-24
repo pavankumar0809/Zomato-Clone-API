@@ -7,8 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-@IdGeneratorType(CustomIdGenerator.class)
+@Target(ElementType.FIELD)          //Where
+@Retention(RetentionPolicy.RUNTIME)     // When
+@IdGeneratorType(CustomIdGenerator.class)   //What
 public @interface GenerateCustomId {
 }
