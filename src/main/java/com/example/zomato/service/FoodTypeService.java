@@ -9,6 +9,9 @@ import com.example.zomato.responsedtos.FoodTypeResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class FoodTypeService {
@@ -20,5 +23,14 @@ public class FoodTypeService {
             throw new FoodTypeTitleAlreadyExists("Food type with the same title already exists.");
         }
         return foodTypeMapper.mapToFoodTypeResponse(foodTypeRepository.save(foodTypeMapper.mapToFoodType(foodTypeRequest, new FoodType())));
+    }
+
+    public List<FoodTypeResponse> finadAllFoodType() {
+        List<FoodTypeResponse> foodTypeResponses= new ArrayList<>();
+        foodTypeRepository.findAll()
+                .forEach(foodType -> {
+                    foodTypeResponses.add(foodTypeMapper.mapToFoodTypeResponse(foodType));
+                });
+        return foodTypeResponses;
     }
 }

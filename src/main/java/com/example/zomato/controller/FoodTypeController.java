@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("${zomato.base_url}")
@@ -21,5 +23,11 @@ public class FoodTypeController {
     public ResponseEntity<ResponseStructure<FoodTypeResponse>> addFoodtype(@RequestBody FoodTypeRequest foodTypeRequest) {
         FoodTypeResponse foodTypeResponse = foodTypeService.addFoodType(foodTypeRequest);
         return appResponseBuilder.success(HttpStatus.CREATED, "Food Type added", foodTypeResponse);
+    }
+
+    @GetMapping("/foodtypes")
+    public ResponseEntity<ResponseStructure<List<FoodTypeResponse>>> findAllFoodType(){
+        List<FoodTypeResponse> foodTypeResponses = foodTypeService.finadAllFoodType();
+        return appResponseBuilder.success(HttpStatus.FOUND, "Food Types Found", foodTypeResponses);
     }
 }
