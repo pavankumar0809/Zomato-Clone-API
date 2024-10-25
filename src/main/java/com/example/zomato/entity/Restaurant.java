@@ -35,18 +35,22 @@ public class Restaurant {
     @ElementCollection
     private List<DietType> dietTypes;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private Address address;
 
     @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "cuisines")
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "restaurants")
     private List<Cuisine> cuisines;
 
     @Column(name = "menu_categories")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private List<MenuCategory> menuCategories;
+
+    @Column(name = "food")
+    @OneToMany(mappedBy = "restaurants")
+    private List<Food> foods;
 }
 

@@ -1,10 +1,7 @@
 package com.example.zomato.entity;
 
 import com.example.zomato.config.GenerateCustomId;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +16,9 @@ public class MenuCategory {
     private String categoryId;
     @Column(name = "title")
     private  String title;
+    @OneToMany(mappedBy = "menuCategory")
+    private Food food;
+
+    @ManyToOne
+    private Restaurant restaurant;
 }

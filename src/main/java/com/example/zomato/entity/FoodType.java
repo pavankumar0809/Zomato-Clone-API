@@ -1,10 +1,7 @@
 package com.example.zomato.entity;
 
 import com.example.zomato.config.GenerateCustomId;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,4 +17,7 @@ public class FoodType {
 
     @Column(name = "title")
     private String title;
+
+    @OneToMany(mappedBy = "foodType")
+    private Food food;
 }

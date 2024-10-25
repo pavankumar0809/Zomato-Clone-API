@@ -20,6 +20,8 @@ public class Cuisine {
 
     @Column(name = "title")
     private String title;
-    @ManyToMany(mappedBy = "cuisines")
+    @ManyToMany
     private List<Restaurant> restaurants;
+    @OneToMany(mappedBy = "cuisine")
+    private List<Food> foods;
 }
