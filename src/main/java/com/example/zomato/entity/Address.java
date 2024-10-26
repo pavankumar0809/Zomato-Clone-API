@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "addresses")
 @Getter
@@ -41,6 +43,7 @@ public class Address {
 
     @Column(name = "longitude")
     private double longitude;
-    @OneToOne
-    private Restaurant restaurant;
+
+    @ManyToOne
+    private Customer customer;
 }

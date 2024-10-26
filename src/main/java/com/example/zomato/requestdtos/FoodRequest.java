@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Duration;
+
 @Getter
 @Setter
 public class FoodRequest {
@@ -26,4 +28,6 @@ public class FoodRequest {
     @NotBlank(message = "availability cannot be blank")
     @Pattern(regexp = "(?i)true|false")
     private boolean availabilty;
+
+    private Duration preparationTime;
 }

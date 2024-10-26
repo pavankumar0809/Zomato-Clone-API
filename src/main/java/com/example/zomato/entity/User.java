@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
     @Column(name = "user_id")
@@ -26,7 +26,7 @@ public class User {
     private String lastName;
 
     @Column(name = "role")
-    private List<UserRole> role;
+    private UserRole role;
 
     @Column(name = "email")
     private String email;

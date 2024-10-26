@@ -13,11 +13,15 @@ import org.springframework.stereotype.Service;
 public class FoodService {
 
     private final FoodRepository foodRepository;
-//    private final FoodMapper foodMapper;
+    private final FoodMapper foodMapper;
+
     public FoodResponse addFood(FoodRequest foodRequest) {
-        if (foodRepository.existsByTitleIgnoreCase(foodRequest.getTitle())){
+        if (foodRepository.existsByTitleIgnoreCase(foodRequest.getTitle())) {
             return null;
         }
-        return null;
+        Food food = foodMapper.mapToFood(foodRequest, new Food());
+        foodRepository.save(food);
+       FoodResponse foodResponse= foodMapper.mapToFoodResponse(food);
+       return foodResponse;
     }
 }

@@ -11,7 +11,7 @@ public class UserMapper {
     public User mapToUser(UserRequest userRequest, User user) {
         user.setRole(userRequest.getRole());
         user.setFirstName(userRequest.getFirstName());
-        user.setLastName(userRequest.getLastname());
+        user.setLastName(userRequest.getLastName());
         user.setEmail(userRequest.getEmail());
         user.setPassword(userRequest.getPassword());
         return user;

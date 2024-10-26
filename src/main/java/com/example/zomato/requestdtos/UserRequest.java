@@ -10,8 +10,8 @@ import java.util.List;
 @Setter
 public class UserRequest {
     private String firstName;
-    private String lastname;
-    private List<UserRole> role;
+    private String lastName;
+    private UserRole role;
     private String email;
     private String password;
 }

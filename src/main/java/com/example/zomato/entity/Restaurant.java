@@ -35,7 +35,7 @@ public class Restaurant {
     @ElementCollection
     private List<DietType> dietTypes;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
     @Column(name = "image_url")
@@ -52,5 +52,8 @@ public class Restaurant {
     @Column(name = "food")
     @OneToMany(mappedBy = "restaurants")
     private List<Food> foods;
+
+    @ManyToOne
+    private RestaurantOwner restaurantOwner;
 }
 

@@ -12,5 +12,5 @@ public class UserResponse {
     private String userId;
     private String firstName;
     private String lastName;
-    private List<UserRole> userRole;
+    private UserRole userRole;
 }

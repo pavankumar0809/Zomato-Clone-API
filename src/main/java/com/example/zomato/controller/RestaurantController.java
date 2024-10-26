@@ -24,8 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("${zomato.base_url}")
 @AllArgsConstructor
+@RequestMapping("${zomato.base_url}")
 @Tag(name = "Restaurant Controller", description = "Restaurant Controller gives endpoint for Restaurant Entity")
 public class RestaurantController {
     private final RestaurantService restaurantservice;
