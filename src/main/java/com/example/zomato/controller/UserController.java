@@ -1,5 +1,6 @@
 package com.example.zomato.controller;
 
+import com.example.zomato.requestdtos.LoginRequest;
 import com.example.zomato.requestdtos.UserRequest;
 import com.example.zomato.responsedtos.UserResponse;
 import com.example.zomato.security.JWTService;
@@ -18,7 +19,6 @@ public class UserController {
 
     private final UserService userService;
     private final AppResponseBuilder appResponseBuilder;
-    private final JWTService jwtService;
 
     @PostMapping("/register")
     public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRequest userRequest){
@@ -26,8 +26,8 @@ public class UserController {
             return appResponseBuilder.success(HttpStatus.CREATED, "user added", userResponse);
     }
 
-    @GetMapping("/login")
-    public String loginDemo(){
-       return jwtService.generateJWT("Virat", 15L);
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest loginRequest){
+       return userService.login(loginRequest);
     }
 }
