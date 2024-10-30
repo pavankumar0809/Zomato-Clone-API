@@ -1,6 +1,7 @@
 package com.example.zomato.service;
 
 import com.example.zomato.entity.Restaurant;
+import com.example.zomato.entity.RestaurantOwner;
 import com.example.zomato.exception.RestaurantNotFoundByIdException;
 import com.example.zomato.mapping.RestaurantMapper;
 import com.example.zomato.repository.RestaurantRepository;
@@ -8,6 +9,7 @@ import com.example.zomato.requestdtos.CuisineRequest;
 import com.example.zomato.requestdtos.RestaurantRequest;
 import com.example.zomato.responsedtos.CuisineResponse;
 import com.example.zomato.responsedtos.RestaurantResponse;
+import com.example.zomato.security.AuthUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,11 +24,13 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMapper restaurantMapper;
     private final ImageService imageService;
-
+    private final AuthUtil authUtil;
 
 
     public RestaurantResponse addRestaurant(RestaurantRequest restaurantRequest) {
-        Restaurant restaurant = restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant()));
+        Restaurant restaurant = restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant());
+        restaurant.setRestaurantOwner((RestaurantOwner) authUtil.getCurrentUser());
+        restaurantRepository.save(restaurant);
         return restaurantMapper.mapToRestaurantResponse(restaurant);
     }
 
