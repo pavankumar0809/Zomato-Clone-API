@@ -21,7 +21,7 @@ public class CuisineController {
 
     private final CuisineService cuisineService;
     private final AppResponseBuilder appResponseBuilder;
-    @PreAuthorize("hasAuthority('RESTAURANT') AND hasAuthority('READ')")
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE') AND hasAuthority('RESTAURANT_READ')")
     @PostMapping("/restaurants/{restaurantId}/cuisines")
     public ResponseEntity<ResponseStructure<CuisineResponse>> addCuisine(@PathVariable String restaurantId, @RequestBody CuisineRequest cuisineRequest) {
         CuisineResponse cuisineResponse = cuisineService.addCuisine(restaurantId, cuisineRequest);

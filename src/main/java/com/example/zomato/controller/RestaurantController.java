@@ -1,9 +1,6 @@
 package com.example.zomato.controller;
 
-import com.example.zomato.entity.Restaurant;
-import com.example.zomato.requestdtos.CuisineRequest;
 import com.example.zomato.requestdtos.RestaurantRequest;
-import com.example.zomato.responsedtos.CuisineResponse;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.service.RestaurantService;
 import com.example.zomato.util.AppResponseBuilder;
@@ -51,7 +48,7 @@ public class RestaurantController {
                     @Content(schema = @Schema(implementation = ErrorStructure.class))
             })
     })
-    @PreAuthorize("hasAuthority('RESTAURANT_OWNER') OR hasAuthority('CUSTOMER')")
+    @PreAuthorize("hasAuthority('RESTAURANT_READ')")
     @GetMapping("/restaurants/{restaurantId}")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> findRestaurant(@PathVariable String restaurantId) {
         RestaurantResponse response = restaurantservice.findRestaurant(restaurantId);
@@ -64,7 +61,7 @@ public class RestaurantController {
                     @Content(schema = @Schema(implementation = ErrorStructure.class))
             })
     })
-    @PreAuthorize("hasAuthority('RESTAURANT_OWNER')")
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PutMapping("/restaurants/{restaurantId}")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> updateRestaurant(@RequestBody RestaurantRequest restaurantRequest, @PathVariable String restaurantId) {
         RestaurantResponse response = restaurantservice.updateRestaurant(restaurantRequest, restaurantId);
@@ -77,7 +74,7 @@ public class RestaurantController {
                     @Content(schema = @Schema(implementation = ErrorStructure.class))
             })
     })
-    @PreAuthorize("hasAuthority('RESTAURANT_OWNER')")
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE)")
     @PutMapping("restaurants/{restaurantId}/images")
     public ResponseEntity<ResponseStructure<String>> addImage(@PathVariable String restaurantId, @RequestParam MultipartFile file) throws IOException {
         String url = restaurantservice.addImage(restaurantId, file);
