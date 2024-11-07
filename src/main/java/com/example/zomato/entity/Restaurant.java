@@ -42,11 +42,18 @@ public class Restaurant {
     private String imageUrl;
 
     @Column(name = "cuisines")
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "restaurants")
     private List<Cuisine> cuisines;
 
     @Column(name = "menu_categories")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private List<MenuCategory> menuCategories;
+
+    @Column(name = "food")
+    @OneToMany(mappedBy = "restaurants")
+    private List<Food> foods;
+
+    @ManyToOne
+    private RestaurantOwner restaurantOwner;
 }
 

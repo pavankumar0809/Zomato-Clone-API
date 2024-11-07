@@ -1,9 +1,6 @@
 package com.example.zomato.controller;
 
-import com.example.zomato.entity.Restaurant;
-import com.example.zomato.requestdtos.CuisineRequest;
 import com.example.zomato.requestdtos.RestaurantRequest;
-import com.example.zomato.responsedtos.CuisineResponse;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.service.RestaurantService;
 import com.example.zomato.util.AppResponseBuilder;
@@ -18,14 +15,15 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 @RestController
-@RequestMapping("${zomato.base_url}")
 @AllArgsConstructor
+@RequestMapping("${zomato.base_url}")
 @Tag(name = "Restaurant Controller", description = "Restaurant Controller gives endpoint for Restaurant Entity")
 public class RestaurantController {
     private final RestaurantService restaurantservice;
@@ -37,6 +35,7 @@ public class RestaurantController {
                     @Content(schema = @Schema(implementation = ErrorStructure.class))
             })
     })
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PostMapping("/restaurants")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> addRestaurant(@Valid @RequestBody RestaurantRequest restaurantRequest) {
         RestaurantResponse response = restaurantservice.addRestaurant(restaurantRequest);
@@ -49,6 +48,7 @@ public class RestaurantController {
                     @Content(schema = @Schema(implementation = ErrorStructure.class))
             })
     })
+    @PreAuthorize("hasAuthority('RESTAURANT_READ')")
     @GetMapping("/restaurants/{restaurantId}")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> findRestaurant(@PathVariable String restaurantId) {
         RestaurantResponse response = restaurantservice.findRestaurant(restaurantId);
@@ -61,6 +61,7 @@ public class RestaurantController {
                     @Content(schema = @Schema(implementation = ErrorStructure.class))
             })
     })
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PutMapping("/restaurants/{restaurantId}")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> updateRestaurant(@RequestBody RestaurantRequest restaurantRequest, @PathVariable String restaurantId) {
         RestaurantResponse response = restaurantservice.updateRestaurant(restaurantRequest, restaurantId);
@@ -73,6 +74,7 @@ public class RestaurantController {
                     @Content(schema = @Schema(implementation = ErrorStructure.class))
             })
     })
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE)")
     @PutMapping("restaurants/{restaurantId}/images")
     public ResponseEntity<ResponseStructure<String>> addImage(@PathVariable String restaurantId, @RequestParam MultipartFile file) throws IOException {
         String url = restaurantservice.addImage(restaurantId, file);

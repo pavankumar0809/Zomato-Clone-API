@@ -25,9 +25,9 @@ public class CuisineService {
         return restaurantRepository.findById(restaurantId)
                 .map(restaurant -> {
                     Cuisine cuisine = cuisineMapper.mapToCuisine(cuisineRequest, new Cuisine());
-                    cuisineRepository.save(cuisine);
                     restaurant.getCuisines().add(cuisine);
                     restaurantRepository.save(restaurant);
+                    cuisineRepository.save(cuisine);
                     return cuisineMapper.mapToCuisineResponse(cuisine);
                 })
                 .orElseThrow(() -> new RestaurantNotFoundByIdException("Restaurant not available with given Id"));
